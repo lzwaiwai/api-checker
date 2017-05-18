@@ -48,6 +48,48 @@ Using npm:
       required: true
     }
 ```
+5. 数据模板结构：
+```
+var tplData = [{
+  _id: {
+    v: '',
+    required: true
+  },
+  weight: 123, // 可以根据情况自定义默认值
+  items: {
+    v: [{
+      _id: {
+        v: '',
+        required: true
+      },
+      subject: '',
+      customPageUrl: ''
+    }],
+    required: true
+  }
+}]
+
+or
+
+var tplData = {
+  _id: {
+    v: '',
+    required: true
+  },
+  weight: 123, // 可以根据情况自定义默认值
+  items: {
+    v: [{
+      _id: {
+        v: '',
+        required: true
+      },
+      subject: '',
+      customPageUrl: ''
+    }],
+    required: true
+  }
+}
+```
 
 ## Usage
 ```
