@@ -1,0 +1,15 @@
+{
+  "name": "api-checker",
+  "version": "1.0.0",
+  "description": "check api data",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "check",
+    "api"
+  ],
+  "author": "lzwai",
+  "license": "ISC"
+}
