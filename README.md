@@ -49,7 +49,7 @@ Using npm:
     }
 ```
 5. 数据模板结构：
-```
+```javascript
     var tplData = [{
       _id: {
         v: '',
@@ -92,7 +92,7 @@ Using npm:
 ```
 
 ## Usage
-```
+```javascript
     apiChecker.check(tplData, apiData, { // 可以运行 examples 的事例来理解
       success: function (data) {
         console.log(data) // 返回符合模板规则的数据结构
