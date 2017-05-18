@@ -50,55 +50,55 @@ Using npm:
 ```
 5. 数据模板结构：
 ```
-var tplData = [{
-  _id: {
-    v: '',
-    required: true
-  },
-  weight: 123, // 可以根据情况自定义默认值
-  items: {
-    v: [{
+    var tplData = [{
       _id: {
         v: '',
         required: true
       },
-      subject: '',
-      customPageUrl: ''
-    }],
-    required: true
-  }
-}]
+      weight: 123, // 可以根据情况自定义默认值
+      items: {
+        v: [{
+          _id: {
+            v: '',
+            required: true
+          },
+          subject: '',
+          customPageUrl: ''
+        }],
+        required: true
+      }
+    }]
 
-or
+    or
 
-var tplData = {
-  _id: {
-    v: '',
-    required: true
-  },
-  weight: 123, // 可以根据情况自定义默认值
-  items: {
-    v: [{
+    var tplData = {
       _id: {
         v: '',
         required: true
       },
-      subject: '',
-      customPageUrl: ''
-    }],
-    required: true
-  }
-}
+      weight: 123, // 可以根据情况自定义默认值
+      items: {
+        v: [{
+          _id: {
+            v: '',
+            required: true
+          },
+          subject: '',
+          customPageUrl: ''
+        }],
+        required: true
+      }
+    }
 ```
 
 ## Usage
 ```
-apiChecker.check(tplData, apiData, { // 可以运行 examples 的事例来理解
-  success: function (data) {
-    console.log(data) // 返回符合模板规则的数据结构
-  },
-  fail: function (err) {
-    console.log(err) // 输出任何不合规则报错
-  }
-})
+    apiChecker.check(tplData, apiData, { // 可以运行 examples 的事例来理解
+      success: function (data) {
+        console.log(data) // 返回符合模板规则的数据结构
+      },
+      fail: function (err) {
+        console.log(err) // 输出任何不合规则报错
+      }
+    })
 ```
