@@ -55,12 +55,16 @@ Using npm:
 
 ## Usage
 ```javascript
-    apiChecker.check(tplData, apiData, { // 可以运行 examples 的事例来理解
+  apiChecker.check(tplData, apiData, {
+      showLog: true,
       success: function (data) {
-        console.log(data) // 返回符合模板规则的数据结构
+        console.log(data)
       },
-      fail: function (err) {
-        console.log(err) // 输出任何不合规则报错
+      error: function (err) {
+        console.log(err)
+      },
+      warn: function (curVal, oldItem, newItem) {
+        // console.log('warn!')
       }
     })
 ```
