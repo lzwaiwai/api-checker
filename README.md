@@ -48,14 +48,13 @@ Using npm:
       required: true
     }
 ```
-
 5. 被设置为必要属性的字段发生缺失或类型错误，直接抛出错误，所以凡是前端可以用默认值替代的字段尽量不建议设置为必要字段。
 
 6. 数据模板结构：
   ![img](https://o4a7cbihz.qnssl.com/cover/0993cfd7-9daf-4a03-8b8b-9a34c8ab331e)
 
 ## Usage
-```
+```javascript
     apiChecker.check(tplData, apiData, { // 可以运行 examples 的事例来理解
       success: function (data) {
         console.log(data) // 返回符合模板规则的数据结构
