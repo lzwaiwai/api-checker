@@ -1,15 +1,19 @@
 {
   "name": "api-checker",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "check api data",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "keywords": [
     "check",
     "api"
   ],
   "author": "lzwai",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.4.1"
+  }
 }

@@ -1,27 +1,27 @@
 var tplData = {
   _id: {
-    v: '', // 可以设置默认值
+    v: '',
     required: true
-  }, // 必须存在
-  imageUrl: '', // 可无
-  iconUrl: '', // 可无
-  subject: '', // 可无
-  weight: 10, // 可无
+  },
+  imageUrl: '',
+  iconUrl: '',
+  subject: '',
+  weight: 10,
   items: {
-    v: [{  // 必须存在
+    v: [{
       _id: {
         v: '',
         required: true
-      }, // 必须存在
-      subject: '', // 可无
-      speakerImgUrl: '', // 可无
-      numOfAudience: 0, // 可无
-      itemType: 'S', // 可无
-      numOfAudience: 0, // 可无
-      operationStatus: '', // 可无
-      normalPrice: 10, // 可无
-      priceAfterTerminated: 0, // 可无
-      customPageUrl: '' // 可无
+      },
+      subject: '',
+      speakerImgUrl: '',
+      numOfAudience: 0,
+      itemType: 'S',
+      numOfAudience: 0,
+      operationStatus: '',
+      normalPrice: 10,
+      priceAfterTerminated: 0,
+      customPageUrl: ''
     }],
     required: true
   }

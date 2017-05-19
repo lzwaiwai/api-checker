@@ -48,48 +48,11 @@ Using npm:
       required: true
     }
 ```
-5. 数据模板结构：
-```
-    var tplData = [{
-      _id: {
-        v: '',
-        required: true
-      },
-      weight: 123, // 可以根据情况自定义默认值
-      items: {
-        v: [{
-          _id: {
-            v: '',
-            required: true
-          },
-          subject: '',
-          customPageUrl: ''
-        }],
-        required: true
-      }
-    }]
 
-    or
+5. 被设置为必要属性的字段发生缺失或类型错误，直接抛出错误，所以凡是前端可以用默认值替代的字段尽量不建议设置为必要字段。
 
-    var tplData = {
-      _id: {
-        v: '',
-        required: true
-      },
-      weight: 123, // 可以根据情况自定义默认值
-      items: {
-        v: [{
-          _id: {
-            v: '',
-            required: true
-          },
-          subject: '',
-          customPageUrl: ''
-        }],
-        required: true
-      }
-    }
-```
+6. 数据模板结构：
+  ![img](https://o4a7cbihz.qnssl.com/cover/0993cfd7-9daf-4a03-8b8b-9a34c8ab331e)
 
 ## Usage
 ```

@@ -1,31 +1,27 @@
-// 原则一：所有复杂数据类型对应的节点，必须存在，
-// 原则二：对前端可能会用到的所有字段做类型初始化
-// 原则三：任何必须存在的字段做强校验，测试环境报错处理，线上环境过滤处理，但都得日志记录。
-
 var tplData = [{
   _id: { // 必须存在的属性，需要申明 requreid 为 true
     v: '',
     required: true
   },
-  imageUrl: '', // 可无
-  iconUrl: '', // 可无
-  subject: '', // 可无
+  imageUrl: '',
+  iconUrl: '',
+  subject: '',
   weight: 123, // 可无，且可以根据情况自定义默认值
-  items: { 必须存在的属性，需要申明 requreid 为 true
+  items: { // 必须存在的属性，需要申明 requreid 为 true
     v: [{
       _id: {
         v: '',
         required: true
       },
-      subject: '', // 可无
-      speakerImgUrl: '', // 可无
-      numOfAudience: 0, // 可无
-      itemType: '', // 可无
-      numOfAudience: 0, // 可无
-      operationStatus: '', // 可无
-      normalPrice: 0, // 可无
-      priceAfterTerminated: 0, // 可无
-      customPageUrl: '' // 可无
+      subject: '',
+      speakerImgUrl: '',
+      numOfAudience: 0,
+      itemType: '',
+      numOfAudience: 0,
+      operationStatus: '',
+      normalPrice: 0,
+      priceAfterTerminated: 0,
+      customPageUrl: ''
     }],
     required: true
   }

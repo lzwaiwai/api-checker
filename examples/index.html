@@ -9,16 +9,24 @@
 <link href="" rel="stylesheet">
 </head>
 <body>
+  <p>请打开控制台查看</p>
   <script type="text/javascript" src="./objData.js"></script>
   <!-- <script type="text/javascript" src="./arrData.js"></script> -->
   <script type="text/javascript" src="../index.js"></script>
   <script type="text/javascript">
     apiChecker.check(tplData, apiData, {
+      showLog: true,
+
       success: function (data) {
         console.log(data)
       },
-      fail: function (err) {
+
+      error: function (err) {
         console.log(err)
+      },
+
+      warn: function (curVal, oldItem, newItem) {
+        // console.log('warn!')
       }
     })
   </script>

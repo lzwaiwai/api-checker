@@ -10,6 +10,15 @@
   var class2type = {}
   var Fn = function () {}
   var apiChecker = {
+    _init: function (options) {
+      this.showLog = !!options.showLog
+      this.success = options.success || Fn
+      this.error = options.error || Fn
+      this.warn = options.warn || Fn
+
+      return this
+    },
+
     _check: function (tplData, apiData) {
       var checkedData
 
@@ -28,57 +37,114 @@
         options = {}
       }
 
-      this.success = options.success || Fn
-      this.fail = options.fail || Fn
-
-      var checkedData = this._check(tplData, apiData)
-      this.success(checkedData)
+      var checkedData = this._init(options)._check(tplData, apiData)
+      checkedData.err ? this._error(checkedData) : this.success(checkedData)
 
       return checkedData
     },
 
     _checkObj: function (tplData, apiData) {
       if (!isPlainObject(apiData)) {
-        return this.fail({ err: 'tplData expects object!' })
+        return this._error('tplData expects object!')
       }
       return this._checkItem(apiData, tplData)
     },
 
     _checkArr: function (tplData, apiData) {
       if (!isArray(apiData)) {
-        return this.fail({ err: 'tplData expects array!' })
+        return this._error('tplData expects array!')
       }
 
       var self = this
       var tplRule = tplData[0]
 
-      apiData.forEach(function (item) {
-        item = self._checkItem(item, tplRule)
-      })
+      for (var i = 0, len = apiData.length; i < len; i++) {
+        var item = apiData[i]
+        var itemData = this._checkItem(item, tplRule)
+        if (itemData.err) {
+          return itemData
+        }
+        item = itemData
+      }
+
       return apiData
     },
 
     _checkItem: function (item, tplRule) {
       for (var v in tplRule) {
         var api = item[v]
+        var originApi = deepClone(item)
         var rule = tplRule[v]
 
         if (isPlainObject(rule)) { // 针对复杂数据结构
-
           if (rule.required) {
             if (!api) {
-              return this.fail({ err: 'api is lack of ' + v })
+              return this._error('api is lack of ' + v)
+            } else if (typeof(api) !== typeof(rule.v)) {
+              return this._error('the type of ' + v + ' is worng, we expect ' + typeof(rule.v))
             } else {
-              this._check(rule.v, api)
+              var checkData = this._check(rule.v, api)
+              if (checkData.err) {
+                return checkData.err
+              }
             }
           }
 
-        } else if (api === undefined || typeof(api) !== typeof(rule)) { // 简单数据结构：api对应属性不存在或者数据类型不对
-          console && console.warn('api is lack of 「 ' + v + ' 」 that is not required')
+        } else if (api === undefined) { // 简单数据结构：api对应属性不存在或者数据类型不对
           item[v] = rule
+          this._warnMiss(v, originApi, item).warn(v, originApi, item)
+        } else if (typeof(api) !== typeof(rule)) {
+          item[v] = rule
+          this._warnType(v, originApi, item).warn(v, originApi, item)
         }
       }
       return item
+    },
+
+    _error: function (err) {
+      let error = { err: err }
+      this.error(error)
+      throw new Error(error) // 终止程序
+    },
+
+    _warnMiss: function (curVal, oldItem, newItem) {
+      if (!this.showLog) {
+        return this
+      }
+      let tip = 'api is lack of 「 ' + curVal + ' 」, but which is not required'
+      this._warn(tip, oldItem, newItem)
+      return this
+    },
+
+    _warnType: function (curVal, oldItem, newItem) {
+      if (!this.showLog) {
+        return this
+      }
+      let tip = 'the type of api\'s 「 ' + curVal + ' 」is wrong, but which is not required '
+      this._warn(tip, oldItem, newItem)
+      return this
+    },
+
+    _warn: function (tip, oldItem, newItem) {
+      try {
+        if (!window) {
+          return
+        }
+        try {
+          console.groupCollapsed(tip)
+        } catch (e) {
+          console.log(tip)
+        }
+
+        console.log('%c old data:', 'color: #03A9F4; font-weight: bold', oldItem)
+        console.log('%c new data:', 'color: #4CAF50; font-weight: bold', newItem)
+
+        try {
+          console.groupEnd()
+        } catch (e) {
+          console.log('—— log end ——')
+        }
+      } catch (err) {}
     }
   }
 
@@ -105,6 +171,30 @@
 
   function isPlainObject (obj) {
     return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) === Object.prototype
+  }
+
+  function deepClone (source) {
+    if (!source && typeof source !== 'object') {
+      throw new Error('error arguments')
+    }
+
+    var targetObj = source.constructor === Array ? [] : {};
+
+    if (Object.assign) {
+      return Object.assign(targetObj, source)
+    }
+
+    for (var keys in source) {
+      if (source.hasOwnProperty(keys)) {
+        if (source[keys] && typeof source[keys] === 'object') {
+          targetObj[keys] = source[keys].constructor === Array ? [] : {}
+          targetObj[keys] = deepClone(source[keys])
+        } else {
+          targetObj[keys] = source[keys]
+        }
+      }
+    }
+    return targetObj
   }
 
   return apiChecker
