@@ -3,7 +3,7 @@ var expect = require('chai').expect
 
 var objData = require('./objData')
 
-describe('obj-type api without missing value', function() {
+describe('1. obj-type api without missing value', function() {
   describe('deep equal', function() {
     it('should return { id: 123, name: \'lzwai\' }', function() {
       var data = apiChecker.check(objData.tplData, objData.apiDataWithAllVals)
@@ -12,16 +12,17 @@ describe('obj-type api without missing value', function() {
   })
 })
 
-describe('obj-type api with wrong-type value that isn\'t required', function() {
+describe('2. obj-type api with wrong-type value that isn\'t required', function() {
   describe('deep equal', function() {
     it('should return { id: 123, name: \'\' }', function() {
       var data = apiChecker.check(objData.tplData, objData.apiDataWithTypeWrongNotRequired)
+      console.log(data)
       expect(data).to.deep.equal({ id: 123, name: '' })
     })
   })
 })
 
-describe('obj-type api with wrong-type value that is required', function() {
+describe('3. obj-type api with wrong-type value that is required', function() {
   describe('throw', function() {
     it('should throw an error', function() {
       expect(function () {
@@ -31,7 +32,7 @@ describe('obj-type api with wrong-type value that is required', function() {
   })
 })
 
-describe('obj-type api with missing value that isn\'t required', function() {
+describe('4. obj-type api with missing value that isn\'t required', function() {
   describe('deep equal', function() {
     it('should return { id: 112233, name: \'\' }', function() {
       var data = apiChecker.check(objData.tplData, objData.apiDataWithoutNotRequired)
@@ -40,7 +41,7 @@ describe('obj-type api with missing value that isn\'t required', function() {
   })
 })
 
-describe('obj-type api with missing value that is required', function() {
+describe('5. obj-type api with missing value that is required', function() {
   describe('throw', function() {
     it('should throw an error', function() {
       expect(function () {
@@ -53,7 +54,7 @@ describe('obj-type api with missing value that is required', function() {
 
 var arrData = require('./arrData')
 
-describe('arr-type api without missing value', function() {
+describe('6. arr-type api without missing value', function() {
   describe('deep equal', function() {
     it('should return [{ id: 123, name: \'lzwai\' }, ...]', function() {
       var data = apiChecker.check(arrData.tplData, arrData.apiDataWithAllVals)
@@ -62,7 +63,7 @@ describe('arr-type api without missing value', function() {
   })
 })
 
-describe('arr-type api with wrong-type value that isn\'t required', function() {
+describe('7. arr-type api with wrong-type value that isn\'t required', function() {
   describe('deep equal', function() {
     it('should return [{ id: 123, name: \'\' }, { id: 123, name: \'lzwai\'}]', function() {
       var data = apiChecker.check(arrData.tplData, arrData.apiDataWithTypeWrongNotRequired)
@@ -85,7 +86,7 @@ describe('arr-type api with wrong-type value that isn\'t required', function() {
   })
 })
 
-describe('arr-type api with wrong-type value that is required', function() {
+describe('8. arr-type api with wrong-type value that is required', function() {
   describe('throw', function() {
     it('should return { err: \'the type of id is worng, we expect number\' }', function() {
       expect(function () {
@@ -95,7 +96,7 @@ describe('arr-type api with wrong-type value that is required', function() {
   })
 })
 
-describe('arr-type api with missing value that isn\'t required', function() {
+describe('9. arr-type api with missing value that isn\'t required', function() {
   describe('deep equal', function() {
     it('should return [{ id: 123, name: \'lzwai\', lists:[{ id: 123, name: \'\' }] }, { id: 123, name: \'\', lists:[{ id: 123, name: \'lzwai\' }]]', function() {
       var data = apiChecker.check(arrData.tplData, arrData.apiDataWithoutNotRequired)
@@ -118,7 +119,7 @@ describe('arr-type api with missing value that isn\'t required', function() {
   })
 })
 
-describe('arr-type api with missing value that is required', function() {
+describe('10. arr-type api with missing value that is required', function() {
   describe('throw', function() {
     it('should return { err: \'api is lack of id\' }', function() {
       expect(function () {
@@ -131,7 +132,7 @@ describe('arr-type api with missing value that is required', function() {
 
 var otherData = require('./otherData')
 
-describe('null api, tplDataObj', function() {
+describe('11. null api, tplDataObj', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -141,7 +142,7 @@ describe('null api, tplDataObj', function() {
   })
 })
 
-describe('null api, tplDatArr', function() {
+describe('12. null api, tplDatArr', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -151,7 +152,7 @@ describe('null api, tplDatArr', function() {
   })
 })
 
-describe('undefined api, tplDataObj', function() {
+describe('13. undefined api, tplDataObj', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -161,7 +162,7 @@ describe('undefined api, tplDataObj', function() {
   })
 })
 
-describe('undefined api, tplDataArr', function() {
+describe('14. undefined api, tplDataArr', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -171,7 +172,7 @@ describe('undefined api, tplDataArr', function() {
   })
 })
 
-describe('string api, tplDataObj', function() {
+describe('15. string api, tplDataObj', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -181,7 +182,7 @@ describe('string api, tplDataObj', function() {
   })
 })
 
-describe('string api, tplDataArr', function() {
+describe('16. string api, tplDataArr', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -191,7 +192,7 @@ describe('string api, tplDataArr', function() {
   })
 })
 
-describe('number api, tplDataObj', function() {
+describe('17. number api, tplDataObj', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -201,7 +202,7 @@ describe('number api, tplDataObj', function() {
   })
 })
 
-describe('number api, tplDataArr', function() {
+describe('18. number api, tplDataArr', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -211,7 +212,7 @@ describe('number api, tplDataArr', function() {
   })
 })
 
-describe('boolean api, tplDataObj', function() {
+describe('19. boolean api, tplDataObj', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {
@@ -221,7 +222,7 @@ describe('boolean api, tplDataObj', function() {
   })
 })
 
-describe('boolean api, tplDataArr', function() {
+describe('20. boolean api, tplDataArr', function() {
   describe('throw', function() {
     it('showld throw an error', function() {
       expect(function () {

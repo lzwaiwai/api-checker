@@ -1,6 +1,6 @@
 {
   "name": "api-checker",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "check api data",
   "main": "index.js",
   "scripts": {

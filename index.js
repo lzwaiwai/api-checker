@@ -56,6 +56,7 @@
       }
 
       var self = this
+      var newApiData = []
       var tplRule = tplData[0]
 
       for (var i = 0, len = apiData.length; i < len; i++) {
@@ -64,41 +65,46 @@
         if (itemData.err) {
           return itemData
         }
-        item = itemData
+        newApiData.push(itemData)
+        // item = itemData
       }
 
-      return apiData
+      return newApiData
     },
 
     _checkItem: function (item, tplRule) {
+      var newItem = {}
       for (var v in tplRule) {
         var api = item[v]
         var originApi = deepClone(item)
         var rule = tplRule[v]
 
         if (isPlainObject(rule)) { // 针对复杂数据结构
+          newItem[v] = {}
           if (rule.required) {
             if (!api) {
               return this._error('api is lack of ' + v)
-            } else if (typeof(api) !== typeof(rule.v)) {
+            } else if (typeof api !== typeof rule.v) {
               return this._error('the type of ' + v + ' is worng, we expect ' + typeof(rule.v))
             } else {
-              var checkData = this._check(rule.v, api)
-              if (checkData.err) {
-                return checkData.err
+              newItem[v] = this._check(rule.v, api)
+              if (newItem[v].err) {
+                return newItem[v].err
               }
             }
           }
 
         } else if (api === undefined) { // 简单数据结构：api对应属性不存在或者数据类型不对
-          item[v] = rule
-          this._warnMiss(v, originApi, item).warn(v, originApi, item)
-        } else if (typeof(api) !== typeof(rule)) {
-          item[v] = rule
-          this._warnType(v, originApi, item).warn(v, originApi, item)
+          newItem[v] = rule
+          this._warnMiss(v, originApi, newItem).warn(v, originApi, newItem)
+        } else if (typeof api !== typeof rule) {
+          newItem[v] = rule
+          this._warnType(v, originApi, newItem).warn(v, originApi, newItem)
+        } else {
+          newItem[v] = api
         }
       }
-      return item
+      return newItem
     },
 
     _error: function (err) {
